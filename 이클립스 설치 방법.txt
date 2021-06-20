@@ -1,0 +1,95 @@
+이클립스 vol1 압축 풀고
+c 드라이브에 eclipse 폴더 만들어서
+eclipse 폴더 안에 bin 내용물 바로 들어있을 수 있게
+
+tomcat 도 마찬가지로 c 드라이브로 옮기기
+
+
+→ 폴더안에 바로 리소스 폴더(파일들) 있을수 있게 하라는 뜻!
+
+
+
+-----------------------------------------------------------------------------------
+
+
+이클립스 실행 -> window -> Preferences -> General -> Appearance -> colors and fonts 
+-> 제일아래 text font -> 나눔고딕코딩으로 변경하고 APPLY 
+
+
+General -> Content Types -> Text -> Default encoding -> UTF-8 넣고 UPDATE
+
+General -> Editor -> Test Editors -> show line numbers 체크 확인
+
+General -> Web Browser -> Use external web brower -> Chrome 체크 -> apply
+
+
+
+
+Java -> Code Style -> Formatter -> Active profile -> new -> Profile name : classF_standard_JDBC -> ok
+대화창 뜨면 Brace positions -> 맨 위 체크박스 클릭 -> next line 변경
+-> 제일 아래 Lambda body 만 Same line 으로 변경 -> apply -> ok
+
+Java -> Complier -> 1.8인지 확인
+
+
+
+검색창에 encoding -> Workspace -> 좌측 하단에 Text file encoding -> Other -> UTF-8 -> apply
+
+
+===> 여기까지 완료 되었다면 Apply and Close
+
+
+-------------------------------------------------------------------------
+
+Create a Dynamic Web project 
+project name : JDBC01
+new runtime -> 톰캣 8.5
+browser -> c드라이브에 들어있는 아파치 톰캣 폴더
+-> next next finish
+
+
+-------------------------------------------------------------------------
+
+java resources -> src -> new -> package -> name : com.util
+
+com.util (우클릭) -> new -> class -> name : DBconn
+
+Dbconn.java 입력
+
+-------------------------------------------------------------------------
+
+java resources -> src -> new -> package -> name : com.util
+
+com.util (우클릭) -> new -> class -> name : Test001
+
+Test001.java 입력
+
+
+Ctrl + F11 눌러서 지금은 톰캣 쓸게 아니기때문에 Run As JavaApplication으로
+다시 Ctrl + F11 누르면 접속 완료
+
+-------------------------------------------------------------------------
+
+com.util (우클릭) -> new -> class -> name : Test002
+
+Test002.java 입력
+
+-------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
