@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test026.html</title>
+
+<style type="text/css">
+	* {font-family: 맑은 고딕; font-weight: bold;}
+	td {text-align: right;}
+	
+</style>
+
+
+</head>
+<body>
+<script type="text/javascript">
+
+	
+ 	// createTdNode() 함수 안쓴 버전
+ 	/* 
+	function showCalendar()
+	{
+		// 테스트
+		//alert("함수호출확인");
+		
+		var tableNode = document.getElementById("calenderTbl");
+		
+		// 주요 변수 선언
+		var nalsu, y, m, w;		//-- 날수, 년, 월, 요일
+		
+		y= document.getElementById("txtYear").value;
+		m= document.getElementById("txtMonth").value;
+		
+		var days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+		// 입력받은 년도의 해당하는 2월의 마지막 날 계산
+		if ( (y%4==0 && y%100!=0) || y%400==0)
+			days[1] = 29;
+		else
+			days[1] = 28;
+		
+		// 1년 1월 1일부터... 직전연도 12월 31일까지의 날수 계산
+		nalsu = (y-1)*365 + parseInt((y-1)/4) - parseInt((y-1)/100) + parseInt((y-1)/400);
+		
+		// 해당 년도 1월 1일부터 직전 달 말일까지의 날수 계산
+		for (var i=0 ; i<(m-1); i++)		
+			nalsu += days[i];
+		
+		// 해당월 시작일 +1
+		nalsu += 1;
+		
+		// 테스트
+		//alert("날수 : " + nalsu);
+		//--==>> 날수 : 737911
+		
+		//--------------------------- 여기까지 수행하면 모든 날수에 대한 종합 완료
+		
+		// 요일 산출
+			// : 입력받은 월의 1일이 무슨 요일인지 확인하기 위한 연산
+		w = nalsu%7;//-- 0 : 일요일 .... 6: 토요일
+		// 테스트
+		//alert(w);
+		// 6 (2021년 5월)
+		
+		
+		var textNode = document.createTextNode("　"); 		
+		var trNode = document.createElement("tr")	//<tr></tr>
+		
+		
+		var i=0;
+		
+		// 빈칸 td 구성
+		while (i<w)
+		{
+			var tdNode = document.createElement("td");	//<td></td>
+			tdNode.appendChild(textNode);			//<td>"  "</td>
+			trNode.appendChild(tdNode);				//<tr><td>"  "</td></tr>
+			i++;
+		}
+		//tableNode.appendChild(trNode);
+		
+		// w=6 
+		// i = 2 w=7
+		
+		// 날짜 td 구성
+		
+		var d=1;
+ 		for (d=1; d <= days[m-1]; d++)
+		{
+			textNode = document.createTextNode(d); 			// 1
+			tdNode = document.createElement("td");			// <td></td>
+			tdNode.appendChild(textNode);					//<td>1</td>
+			trNode.appendChild(tdNode);						//<tr><td>1</td><td>2</td></td>
+			if ( (d+w)%7==0 )
+			{
+				tableNode.appendChild(trNode);
+				var trNode = document.createElement("tr");
+				
+			}
+		}
+		tableNode.appendChild(trNode);
+		
+		// 마지막으로 빈칸 채우기
+		if ( ((d-1)+w)%7 != 0)
+		{
+			for (var i = 0; i < 7 ; i++, d++)
+			{
+				textNode = document.createTextNode(" ");
+				tdNode = document.createElement("td");	
+				tdNode.appendChild(textNode);
+				trNode.appendChild(tdNode);
+				if ((d+w)%7==0)
+				{
+					tableNode.appendChild(trNode);
+					break;
+			
+				}
+			}
+		}
+		
+	} */
+	
+	// 기존테이블 사용 버전
+	/* 
+	function showCalendar()
+	{
+		
+		// 주요 변수 선언
+		var nalsu, y, m, w;		//-- 날수, 년, 월, 요일
+		
+		y= document.getElementById("txtYear").value;
+		m= document.getElementById("txtMonth").value;
+		
+		var days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+		// 입력받은 년도의 해당하는 2월의 마지막 날 계산
+		if ( (y%4==0 && y%100!=0) || y%400==0)
+			days[1] = 29;
+		else
+			days[1] = 28;
+		
+		// 1년 1월 1일부터... 직전연도 12월 31일까지의 날수 계산
+		nalsu = (y-1)*365 + parseInt((y-1)/4) - parseInt((y-1)/100) + parseInt((y-1)/400);
+		
+		// 해당 년도 1월 1일부터 직전 달 말일까지의 날수 계산
+		for (var i=0 ; i<(m-1); i++)		
+			nalsu += days[i];
+		
+		// 해당월 시작일 +1
+		nalsu += 1;
+		
+		w = nalsu%7;//-- 0 : 일요일 .... 6: 토요일
+		
+		var i=0;
+		
+		
+		var tableNode = document.getElementById("calenderTbl");
+		var trNode = document.createElement("tr");
+		
+		// 빈칸 td 구성
+		for (var i = 0; i<w ; i++)
+			trNode.appendChild(createTdNode(""));
+		
+		// 날짜 td 구성
+		var d=1;
+ 		for (d=1; d <= days[m-1]; d++)
+		{
+			trNode.appendChild(createTdNode(d));						
+			if ( (d+w)%7==0 )
+			{
+				tableNode.appendChild(trNode);
+				var trNode = document.createElement("tr");
+			}
+		}
+		tableNode.appendChild(trNode);
+		
+		// 마지막으로 빈칸 채우기
+		if ( ((d-1)+w)%7 != 0)
+		{
+			for (var i = 0; i < 7 ; i++, d++)
+			{
+				textNode = document.createTextNode(" ");
+				tdNode = document.createElement("td");	
+				tdNode.appendChild(textNode);
+				trNode.appendChild(tdNode);
+				if ((d+w)%7==0)
+				{
+					tableNode.appendChild(trNode);
+					break;
+			
+				}
+			}
+		}
+	} 
+	 */
+	 
+	// 새로운 테이블 생성 버전
+	function showCalendar()
+	{
+		
+		// 주요 변수 선언
+		var nalsu, y, m, w;		//-- 날수, 년, 월, 요일
+		
+		y= document.getElementById("txtYear").value;
+		m= document.getElementById("txtMonth").value;
+		
+		var days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+		// 입력받은 년도의 해당하는 2월의 마지막 날 계산
+		if ( (y%4==0 && y%100!=0) || y%400==0)
+			days[1] = 29;
+		else
+			days[1] = 28;
+		
+		// 1년 1월 1일부터... 직전연도 12월 31일까지의 날수 계산
+		nalsu = (y-1)*365 + parseInt((y-1)/4) - parseInt((y-1)/100) + parseInt((y-1)/400);
+		
+		// 해당 년도 1월 1일부터 직전 달 말일까지의 날수 계산
+		for (var i=0 ; i<(m-1); i++)		
+			nalsu += days[i];
+		
+		// 해당월 시작일 +1
+		nalsu += 1;
+		
+		w = nalsu%7;//-- 0 : 일요일 .... 6: 토요일
+		
+		var i=0;
+		 
+		// 새로운 테이블 생성		
+		var calendarBox = document.getElementById("newCalendarBox");
+		
+		//테스트
+		//alert(calendarBox);
+		//--==>>[object HTMLDivElement]
+		
+		var tableNode = document.createElement("table");
+		var dayName = ["일", "월", "화", "수", "목", "금", "토"];
+		var trNode = document.createElement("tr");
+		
+		for (var i = 0; i < dayName.length; i++)
+		{
+			trNode.appendChild(createTdNode(dayName[i]));
+		}
+		tableNode.appendChild(trNode);
+	
+		// <tr></tr> 개행 추가
+		trNode = document.createElement("tr");
+		
+		// 빈칸 td 구성
+		for (var i = 0; i<w ; i++)
+			trNode.appendChild(createTdNode(""));
+		
+		// 날짜 td 구성
+		var d=1;
+ 		for (d=1; d <= days[m-1]; d++)
+		{
+			trNode.appendChild(createTdNode(d));						
+			if ( (d+w)%7==0 )
+			{
+				tableNode.appendChild(trNode);
+				var trNode = document.createElement("tr");
+			}
+		}
+		tableNode.appendChild(trNode);
+		
+		// 마지막으로 빈칸 채우기
+		if ( ((d-1)+w)%7 != 0)
+		{
+			for (var i = 0; i < 7 ; i++, d++)
+			{
+				textNode = document.createTextNode(" ");
+				tdNode = document.createElement("td");	
+				tdNode.appendChild(textNode);
+				trNode.appendChild(tdNode);
+				if ((d+w)%7==0)
+				{
+					tableNode.appendChild(trNode);
+					break;
+			
+				}
+			}
+		}
+		calendarBox.appendChild(tableNode); 
+	} 
+ 	
+	
+
+
+	function actionCalendar()
+	{
+		//테스트
+		//alert("함수 호출 확인~!!!");
+		
+		// 입력한 년, 월 가져오기
+		var yearStr = document.getElementById("txtYear").value;
+		var monthStr = document.getElementById("txtMonth").value;		
+		
+		// 형 변환
+		var year = parseInt(yearStr);
+		var month = parseInt(monthStr);
+		
+		// 테스트
+		//alert("입력년도 : " + year + ", 입력월 : " + month);
+		
+		/*
+		if (year < 1)
+		{	
+			alert("입력 년도 이상~!!");
+			return;
+		}
+		
+		if (month < 1 || month > 12)
+		{	
+			alert("입력 월 이상~!!");
+			return;
+		}
+		*/
+		
+		if(year<1 || month < 1 || month > 12)
+		{
+			alert("입력한 년 또는 월이 유효하지 않습니다.");
+			return;
+		}
+		
+		// 1단계. 1년 1월 1일 부터... 입력 년도 기준 전년도 12월 31일 까지의
+		//        총 날짜 수 연산. (몫을 취할 수 있도록 구성 → 정수 기반 연산)
+		var total = 0;
+		total = (year-1)*365 + parseInt((year-1)/4) - parseInt((year-1)/100) + parseInt((year-1)/400);
+		
+		//테스트
+		//alert("1년1월1일 ~ " + (year-1) + "년12월31일 : " + total);
+		//--==>> 1년1월1일 ~ 2020년12월31일 : 737790
+		
+		// 2단계. 해당 년도 1월 1일 부터 .. 해당 년도 해당월 1일까지의
+		//        총 날짜 수 연산
+		var m =  [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+		
+		//테스트
+		//alert(m.length);
+		
+		// 입력 월 이전 월 까지의 총 날 수 + 하루
+		for (var i = 0; i < month-1 ; i++)
+		{
+			total += m[i];
+		}
+		total++;
+		
+		// 2월이 윤년일 경우 확인 → + 하루 
+		if (month >= 3 && (year%4==0 && year%100!=0 || year%400==0))
+		{
+			total++;
+		}
+		
+		// 테스트
+		//alert(total);
+		//--==>> 737911 (→ 2021년 5월 기준)
+		
+		// 3단계. 해당 년도(입력 년도) 해당 월(입력 월)의 첫 날(1일)의 요일 확인.
+		var days = total % 7;
+		
+		//테스트 -- 0 : 일요일 .... 6: 토요일
+		//alert(days);
+		//--==>> 6 (→ 2021년 5월 기준)
+		// 즉, 2021년 5월 1일은 토요일
+		
+		// 4단계. 해당 년도(입력 년도) 해당 월(입력 월)의 마지막 날짜 확인.
+		//          (28일, 29일, 30일, 31일)
+		var lastDay = m[month-1];
+		if (month==2 && (year%4==0 && year%100!=0 || year%400==0))
+		{
+			lastDay = 29;
+		}
+		// 테스트
+		//alert(lastDay);
+		//--==>> 31 (→ 2021년 5월 기준)
+		//--==>> 29 (→ 2020년 2월 기준)
+		//--==>> 28 (→ 2021년 2월 기준)
+		
+		// 5단계. 해당 년도 해당 월 기준 달력 구성. (출력, 그리기)
+		
+		// 5-1. 기존 테이블 활용하기--------------------------------------------------------------
+		/*
+		var tableNode = document.getElementById("calenderTbl");
+		
+		var trNode = document.createElement("tr");		// <tr></tr>
+		
+		// 해당 월의 1일이 시작되기 전에 빈 칸 td 채우기 
+		for (var i = 0; i < days ; i++)
+		{
+			trNode.appendChild(createTdNode(""));
+		}
+		
+		// 1일 부터... 해당 월의 마지막 날짜까지 td 채우기
+		var d=1;
+		for(d=1; d<=lastDay; d++)
+		{
+			trNode.appendChild(createTdNode(d));
+			
+			// 일요일을 그리기 시작할 때...
+			// 기존 tr 구성을 마무리하고
+			// 다시 새로운 tr을 구성하는 부분
+			if ((d+days)%7==0)	// 일요일 그리기 전에...
+			{
+				tableNode.appendChild(trNode); 
+				trNode = document.createElement("tr");
+				
+			}
+		}
+		
+		// 날짜 구성 이후 마지막 빈칸 td 채우기
+		// 최종 d값이 lastDay+1 이기 때문에 -1
+		if ( ((d-1)+days)%7 !=0 )
+		{
+			for (var i = 0; i < 7; i++, d++)
+			{	
+				trNode.appendChild(createTdNode(""));
+				
+				if ( (d+days)%7==0 )
+				{	
+					tableNode.appendChild(trNode);
+					break;
+				}
+		
+			}
+		}
+		//tableNode.appendChild(trNode);
+		*/
+		
+		//----------------------------------------------------------- 5-1 기존 테이블 활용하기
+		
+		
+		// 5-2 새로운 달력 그리기 ------------------------------------------------------------
+		
+		var caledarBox = document.getElementById("newCalendarBox");
+		var tableNode = document.createElement("table");		// <table></table>
+		
+		var trNode = document.createElement("tr");
+		var dayName = ["일", "월", "화", "수", "목", "금", "토"];
+		for (var i = 0; i < dayName.length; i++)
+			trNode.appendChild(createTdNode(dayName[i]));
+		tableNode.appendChild(trNode);
+		
+		
+		var trNode = document.createElement("tr");		// <tr></tr>
+		
+		// 해당 월의 1일이 시작되기 전에 빈 칸 td 채우기 
+		for (var i = 0; i < days ; i++)
+		{
+			trNode.appendChild(createTdNode(""));
+		}
+		
+		// 1일 부터... 해당 월의 마지막 날짜까지 td 채우기
+		var d=1;
+		for(d=1; d<=lastDay; d++)
+		{
+			trNode.appendChild(createTdNode(d));
+			
+			// 일요일을 그리기 시작할 때...
+			// 기존 tr 구성을 마무리하고
+			// 다시 새로운 tr을 구성하는 부분
+			if ((d+days)%7==0)	// 일요일 그리기 전에...
+			{
+				tableNode.appendChild(trNode); 
+				trNode = document.createElement("tr");
+				
+			}
+		}
+		
+		// 날짜 구성 이후 마지막 빈칸 td 채우기
+		// 최종 d값이 lastDay+1 이기 때문에 -1
+		if ( ((d-1)+days)%7 !=0 )
+		{
+			for (var i = 0; i < 7; i++, d++)
+			{	
+				trNode.appendChild(createTdNode(""));
+				
+				if ( (d+days)%7==0 )
+				{	
+					tableNode.appendChild(trNode);
+					break;
+				}
+		
+			}
+		}
+		
+		tableNode.appendChild(trNode);
+		
+		
+		caledarBox.appendChild(tableNode);
+		
+		
+		// ------------------------------------------------------------ 5-2 새로운 달력 그리기 
+		
+		
+	}
+	
+	
+	function createTdNode(val)
+	{
+		var textNode = document.createTextNode(val);
+		var tdNode = document.createElement("td");
+		tdNode.appendChild(textNode);
+		return tdNode;
+	}
+	
+	
+
+</script>
+
+
+<div>
+	<h1>테이블 동적 생성으로 만년달력 그리기</h1>
+	<hr>
+</div>
+
+<div>
+	<form>
+		<input type="text" id="txtYear" class="txt" style="width: 67px;"> 년
+		<input type="text" id="txtMonth" class="txt" style="width: 67px;"> 월
+		<br><br>
+		
+		<button type="button" class="btn" style="width: 200px;" onclick="showCalendar()">만년 달력 그리기</button>
+		<br><br>
+		
+		
+		<table border="1" id="calenderTbl">
+	<!-- 		<tr>
+				<th>일</th>
+				<th>월</th>
+				<th>화</th>
+				<th>수</th>
+				<th>목</th>
+				<th>금</th>
+				<th>토</th>
+			</tr> -->
+		</table> 
+		
+		<br><br><br><br><br><br>
+		<div id="newCalendarBox"></div>
+		
+		
+	</form>
+
+</div>
+
+</body>
+</html>

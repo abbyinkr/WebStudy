@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test021.html</title>
+
+<style type="text/css">
+
+	* {color: #223322; font-size: 10pt; font-weight: bold;}
+	 td {text-align: right;}
+	input {font-family: 나눔고딕코딩; text-align: right;}
+	
+	input.btn {background-color: #99ccff; color: white; width:120px; text-align: center; height: 25px;}
+	input.btn:hover {background-color: #6699ff; color: white;}
+	
+	div {width: 400px;}
+	
+</style>
+
+</head>
+<body>
+<!--
+	사용자로부터 정수를 임의의 갯수만큼 입력받고,
+	그 내용으로 자바스크립트 배열을 구성하여
+	그 정수들 중 가장 큰 수를 출력해줄 수 있는 페이지를 구성한다.
+	
+	HTML, CSS, Javascript 활용한다.
+	
+	페이지 레이아웃
+	----------------------------------------------------
+	데이터 입력(공백 구분) [                ]
+	
+	< 결과 확인 >
+	
+	- 전체 출력  [               ]
+	- 가장 큰 수         [       ]
+	----------------------------------------------------
+
+-->
+
+<script type="text/javascript">
+/* 
+	function calc()
+	{
+		//alert("함수 호출 확인");
+		var str = document.getElementById("txt01").value;
+		//document.getElementById("array").value = str;
+		
+		var arr = str.split(' ');
+		var arrStr = "";
+		var big ="";
+		
+		for (var n = 0; n < arr.length; n++)
+		{
+			arrStr += arr[n] + " ";	
+		}
+		document.getElementById("txt02").value = arrStr;
+		
+		
+		for (var n = 1; n < arr.length; n++)
+		{
+			if (arr[n-1]<arr[n])
+				big = arr[n];
+			if (arr[n-1]>arr[n]) 
+				big = arr[n-1]				
+			if (arr[n-1]<arr[n])
+				big = arr[n];
+		}
+		document.getElementById("txt03").value = big;
+	}
+*/
+
+	function myArray()
+	{
+		// 테스트
+		//alert("함수호출");
+		
+		// 입력값을 활용하여 자바스크립트 배열 구성
+		var tempStr = document.getElementById("txt01").value; // "20 30 10 60 40 50"
+		var arr = tempStr.split(" ");						  // ["20", "30", "10", "60", "40", "50"]
+		//-- var arr = ["20", "30", "10", "60", "40", "50"]
+		
+		// 배열의 전체 요소 출력
+		//document.getElementById("txt02").value = arr; -> 더미데이터, 지양해야함
+		// 반복문을 통해 배열의 전체요소 문자열에 담기
+		var allStr = "";
+		for (var n = 0; n < arr.length; n++)
+			allStr += arr[n] + " ";		
+		
+		document.getElementById("txt02").value = allStr;
+		
+		// 가장 큰 수 출력
+		// 연산을 위해 첫번째 값 담기
+		var max = Number(arr[0]);
+		
+		for (var n = 0; n < arr.length; n++)
+		{		
+			if (max < Number(arr[n]))
+				max = Number(arr[n]);
+		}
+		
+		document.getElementById("txt03").value = max;
+		
+	}
+
+
+</script>
+
+<div>
+	<h1>자바스크립트 활용</h1>
+	<hr>
+</div>
+
+<div>
+	<form>
+		<div>
+			데이터 입력(공백 구분) 
+			<input type="text" class="txt" id="txt01" style="width:220px"><br><br>
+		</div>
+		<div>
+			<!-- <input type="button" class="btn" value=" 결과 확인 " onclick="calc()"> -->
+			<input type="button" class="btn" value=" 결과 확인 " onclick="myArray()">
+			<br><br>
+		</div>
+		<div>
+			<table>
+				<tr>
+					<td>- 전체 출력  </td>
+					<td> <input type="text" class="txt" id="txt02"  style="width:280px;" disabled="disabled"> </td>
+				</tr>
+				<tr>
+					<td>- 가장 큰 수 </td>
+					<td> <input type="text" class="txt" id="txt03" style="width:80px; " disabled="disabled"> </td>
+				</tr>
+			</table>
+		</div>
+		
+	
+	</form>
+</div>
+
+</body>
+</html>

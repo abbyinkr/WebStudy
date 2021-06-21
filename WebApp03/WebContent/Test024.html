@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test024.html</title>
+
+<style type="text/css">
+	 td {text-align: center;}
+	input {font-family: 나눔고딕코딩; text-align: right;}
+	
+	input.txt {width:50px;}
+	input.btn {background-color: #99ccff; color: white; width:120px; text-align: center; height: 25px;}
+	input.btn:hover {background-color: #6699ff; color: white;}
+	
+	div {width: 700px;}
+</style>
+
+
+</head>
+<body>
+
+<!--  
+	prompt() 를 활용하여 여러 명의 성적을 입력받고
+	등수를 부여하여 리스트를 출력하는 페이지를 구성한다.
+	
+	HTML, CSS, Javascript 활용한다.
+	
+	페이지 레이아웃
+	-------------------------------------------------------------
+	< 성적 정보 입력 > ---버튼 클릭 → 이름 국어 영어 수학(1) : 
+	
+	전체 인원 수 : [  3]명
+	--------------------------------------
+	이름   국어  영어  수학  총점  등수  
+    선혜연  90     80    70   xxx   1등	 
+    심혜진  80     70    60   xxx   2등
+    김가영  70     60    50   xxx   3등
+    --------------------------------------
+	
+	
+	-------------------------------------------------------------
+	
+	
+	
+-->
+
+<script type="text/javascript">
+
+	// 나의 풀이
+	function addSungjuk()
+	{
+		var str = "";
+		var arr = new Array(new Array(), new Array(), new Array(), new Array(), new Array(), new Array());
+		var n = 0;
+		
+		do
+		{
+			str = prompt("이름 국어 영어 수학(" + (n+1) + ") : ");
+			// 테스트
+			//alert(str);
+			
+			if(str=="." || str==" ")
+				break;
+			
+			// temp : 문자 타입 배열
+			var temp = str.split(" ");
+			// 테스트
+			//alert(temp[0]);
+
+		    for (var k = 0; k < 4; k++)
+				arr[k][n] = temp[k];
+		    
+
+			// 총점 → 숫자타입으로 계산한후 문자타입으로 배열에 담기
+			arr[4][n] = (Number(temp[1])+Number(temp[2])+Number(temp[3])).toString();
+			
+			// 석차 연산을 위해 1로 초기화
+			arr[5][n] = 1;
+			
+			n++;
+					
+		} while (true);
+		// 여기까지 하면 총점까지 담은 상태
+		
+		// 석차 연산
+		for (var i = 0; i < arr[0].length; i++)
+		{
+			for (var j = 0; j < arr[0].length; j++)
+			{
+				if (i==j)
+					continue;
+				if (Number(arr[4][i]) < Number(arr[4][j]) )
+					arr[5][i] = (Number(arr[5][i])+1).toString();
+				
+			}
+		}
+		
+		// 출력할 값 변수로 선언
+		var result = "";
+		for (var i = 0; i < arr[0].length; i++)
+		{
+			for (var j = 0; j < arr.length; j++)
+			{
+				if (j==5)
+					result += arr[j][i]+"등";
+				else
+					result += arr[j][i] + "   ";
+				
+			}
+			result += "\n";
+		}
+			 	
+				 	
+		document.getElementById("txtCount").value = arr[0].length;
+		
+		document.getElementById("memberList").value = "이름   국어  영어  수학  총점 등수\n";
+		document.getElementById("memberList").value += result;
+	}
+
+	
+	
+	/*
+	// 선생님 풀이
+	function actionScore()
+	{
+		alert("함수 호출 확인");
+		
+	 	var str = "";
+	 	var arr = new Array(new Array(), new Array(), new Array(), new Array(), new Array(), new Array());
+	 	//                      이름들 국어점수들 영어점수들 수학점수들  총점들    석차들
+	 	
+	 	var n = 0;
+	 	
+	 	do
+		{
+	 		str = prompt("이름 국어 영어 수학(" + (n+1) + ") : ");
+	 		
+	 		if (str=="." || str==" ")
+				break;
+	 		
+	 		var member = str.split(" "); // 문자열 요소 배열
+	 		
+	 		arr[0][n] = member[0];
+	 		arr[1][n] = member[1];
+	 		arr[2][n] = member[2];
+	 		arr[3][n] = member[3];
+	 		//arr[4][0] = Number(member[1])+Number(member[2])+Number(member[3]); 
+	 		arr[4][n] = (Number(member[1])+Number(member[2])+Number(member[3])).toString(); // 문자열로변환
+	 		
+	 		// 등수 1로 초기화
+	 		arr[5][n] = 1;
+	 		
+	 		n++;
+	 		
+		} while (true);
+	 	 
+	 	// 석차 산출
+	 	for (var i = 0; i < arr[0].length; i++)
+		{
+			for (var j = 0; j < arr[0].length; j++)
+			{
+				if (i==j)
+					continue;
+				
+				if (Number(arr[4][i]) < Number(arr[4][j]) )
+					arr[5][i] = (Number(arr[5][i])+1).toString(); 					
+			}					
+		}
+	 	
+	 	var result = "";
+	 	
+	 	for (var j = 0; j < arr[0].length; j++)
+		{
+			for (var k = 0; k < arr.length; k++)
+			{
+				//alert(k + ", " + j);
+				result += arr[k][j] + "   ";
+			}
+			result += "\n";
+		}
+	 	
+	 	document.getElementById("txtCount").value = arr[0].length;
+	 	
+	 	document.getElementById("memberList").value = "이름  국어  영어  수학  총점  등수  \n";
+	 	document.getElementById("memberList").value += result;
+	 	
+	 	
+	 	
+	} */
+	
+	
+
+</script>
+
+<div>
+	<h1>자바스크립트 활용</h1>
+	<hr>
+</div>
+<div>
+	<form>
+		<input type="button" value="성적 정보 입력" class="btn" 
+		style="width: 300px;" onclick="addSungjuk()">
+		<br><br>
+		전체인원 수 
+		<input type="text" class="txt" id="txtCount" style="width: 20px;" readonly="readonly">명
+		<br><br>
+
+		<textarea rows="15" cols="40" id="memberList" disabled="disabled"></textarea>
+		
+	
+	</form>
+</div>
+
+</body>
+</html>

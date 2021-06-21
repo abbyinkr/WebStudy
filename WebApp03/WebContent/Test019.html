@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test019.html</title>
+
+<style type="text/css">
+	* {color: #223322; font-size: 10pt; font-weight: bold;}
+	td {text-align: center;}
+	input {font-family: 나눔고딕코딩; }
+	.div {width: 400px;}
+	.txtarea {width:80%; background-color: #f7e6ff; height: 200px;}
+	input.btn {width: 40%}
+	input.txt {width: 190px;}
+
+</style>
+
+</head>
+<body>
+<!-- 
+	1 부터 n 까지의 합을 계산하되 n 은 100 이상만 허용하고
+	출력 시 10의 배수가 될 때 마다 중간 합을 출력할 수 있는
+	페이지를 구성한다.
+	반복문을 활용할 수 있도록 한다.
+	
+	HTML, CSS, Javascript 활용
+	
+	페이지 레이아웃
+	-------------------------------------------------------------
+	정수 입력(100 이상)    [            ] → 조건 유효성 확인
+	
+	    < 결과 > < 취소 >
+	    
+	-----------------------------------
+	textarea
+	
+	1 ~ 10 : 55
+	1 ~ 20 : 210
+	1 ~ 30 : xxx
+	   :
+	1 ~ 100: 5050
+	-----------------------------------
+	
+	-------------------------------------------------------------
+
+-->
+<script type="text/javascript">
+
+	function calc()
+	{
+		//alert("함수호출확인~");
+		
+		var num = document.getElementById("num").value;
+		
+		
+	 	if (num<100)
+		{
+			alert("100 이상을 입력해주세요");
+			document.getElementById("num").value = "";
+			return;
+		}
+	 	// 이 아래로 내려왔다면 num>=100 이다.
+	 	
+	 	var str ="";
+	 	var sum=0;
+	 	
+	 	for (var n = 0; n <= num ; n++)
+		{
+	 		sum += n;
+	 		if (n%10==0 && n != 0)
+				str += "1 ~ " + n + " : " + sum +"\n";
+		}
+	 	//alert(str);
+	 	document.getElementById("result").value = str;
+	 	
+	 	
+	}
+
+	/* 
+	// 선생님 풀이
+	function actionPerformed()
+	{
+		//테스트
+		//alert("함수호출확인~");
+		
+		// 이전 처리 내용 제거 
+		document.getElementById("result").value="";
+		
+		var nNum = document.getElementById("num").value;
+		var nSum = 0;
+		
+		if (nNum < 100)
+		{
+			alert("입력값은 100 이상만 가능합니다.");
+			return;	// 함수 종료
+		}
+		
+		for (var n = 1; n <= nNum ; n++) // 1 부터 입력값(nNum)까지 1씩 증가하며 반복 
+		{
+			nSum += n;
+			if (n%10==0)	// n 이 10의 배수일 때..
+			//document.getElementById("result").value += "1 ~ " + n +  " : " + nSum + "<br>"; //개행 구분
+			document.getElementById("result").value += "1 ~ " + n +  " : " + nSum + "\n";	  //개행 구분
+								
+			
+		}
+		document.getElementById("result").value += "1 ~ " + nNum +  " : " + nSum+"\n";
+	} */
+	
+ 	
+ 	
+</script>
+
+<div>
+	<h1>자바스크립트 활용</h1>
+	<hr>
+</div>
+
+<div>
+	<form>
+		
+		<div class="div"> 
+			정수 입력(100 이상) 
+			<input type="text" id="num" class="txt">
+		</div>
+		<div class="div">
+			<br>
+			<input type="button" value="결과" class="btn" onclick="calc()">
+			<input type="reset" value="취소" class="btn">
+			<br><br>
+		</div>
+		<div Class="div">	
+			<textarea class="txtarea" id="result" readonly="readonly">
+			</textarea>
+		</div>
+		
+ 
+	</form>
+
+
+</body>
+
+
+</div>
+
+
+</html>
