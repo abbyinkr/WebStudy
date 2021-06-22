@@ -1,0 +1,148 @@
+<%@page import="com.test.MemberScoreDTO"%>
+<%@page import="com.test.MemberScoreDAO"%>
+<%@page import="com.test.MemberDAO"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%
+	// TBL_MemberScore 데이터 전체 출력 
+	
+	StringBuffer str = new StringBuffer();
+	MemberScoreDAO dao = new MemberScoreDAO();
+	
+	try
+	{
+		// 데이터베이스 연결
+		dao.connection();
+		
+		str.append("<table class='table'>");
+		str.append("<tr>");
+		str.append("<th class='numTh'>"+ "번호" + "</th>");
+		str.append("<th class='nameTh'>"+ "이름" + "</th>");
+		str.append("<th class='txtScore'>"+ "국어점수" + "</th>");
+		str.append("<th class='txtScore'>"+ "영어점수" + "</th>");
+		str.append("<th class='txtScore'>"+ "수학점수" + "</th>");
+		str.append("<th class='txtScore'>"+ "총점" + "</th>");
+		str.append("<th class='txtScore'>"+ "평균" + "</th>");
+		str.append("<th class='txtScore'>"+ "석차" + "</th>");
+		str.append("<th class='manageTh'>"+ "성적관리" + "</th>");
+		str.append("</tr>");
+		
+		for(MemberScoreDTO score : dao.lists())
+		{
+			str.append("<tr>");
+			str.append("<td>" + score.getSid() + "</td>");
+			str.append("<td>" + score.getName() + "</td>");
+			str.append("<td>" + score.getKor() + "</td>");
+			str.append("<td>" + score.getEng() + "</td>");
+			str.append("<td>" + score.getMat() + "</td>");
+			str.append("<td>" + score.getTot() + "</td>");
+			str.append("<td>" + String.format("%.1f", score.getAvg()) + "</td>");
+			str.append("<td>" + score.getRank() + "</td>");
+			
+			// 성적 처리 항목(입력, 수정, 삭제)
+			/*			
+			str.append("<td>");
+			str.append("<button type='button' class='btn02'>" + "입력" + "</button>");
+			str.append("<button type='button' class='btn01'>" + "수정" + "</button>");
+			str.append("<button type='button' class='btn01'>" + "삭제" + "</button>");
+			str.append("</td>");
+			*/
+			
+			if(score.getKor()==-1 && score.getEng()==-1 && score.getMat()==-1)
+			{
+				str.append("<td>");
+				str.append("<a href='MemberScoreInsertForm.jsp?sid=" +score.getSid() + "'>");
+				str.append("<button type='button' class='btn01'>" + "입력" + "</button>");
+				str.append("</a>");
+				/* 기능하지 않음 (수정,삭제) */
+				str.append("<button type='button' class='btn02'>" + "수정" + "</button>");
+				str.append("<button type='button' class='btn02'>" + "삭제" + "</button>");
+				str.append("</td>");
+			}
+			else
+			{
+				/* 기능하지 않음 (입력) */
+				str.append("<td>");
+				str.append("<button type='button' class='btn02'>" + "입력" + "</button>");
+				
+				str.append("<a href='MemberScoreUpdateForm.jsp?sid=" +score.getSid() + "'>");
+				str.append("<button type='button' class='btn01'>" + "수정" + "</button>");
+				str.append("</a>");
+				
+				str.append("<a href='javascript:memberScoreDelete(" + score.getSid() + ", \"" + score.getName() + "\")'>");
+				str.append("<button type='button' class='btn01'>" + "삭제" + "</button>");
+				str.append("</a>");
+				str.append("</td>");
+			}
+			
+			str.append("</tr>");
+		}
+		str.append("</table>");
+		
+	}
+	catch(Exception e)
+	{
+		System.out.println(e.toString());
+	}
+	finally
+	{
+		try
+		{
+			// 데이터베이스 종료
+			dao.close();
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.toString());
+		}
+	}
+	
+
+
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>MemberScoreSelect.jsp</title>
+<link rel="stylesheet" type="text/css" href="css/MemberScore.css">
+<script type="text/javascript">
+
+	function memberScoreDelete(sid, name)
+	{
+		// ※ name 문자열을 넘기는 과정에서 따옴표 주의~!!!
+	 
+		// 테스트
+		// alert(sid);
+		// alert(name);
+		
+		var res = confirm("번호: " + sid + ", 이름: " + name + "\n 이 회원의 성적 정보를 삭제하시겠습니까?");
+		
+		if(res)
+			window.location.href = "MemberScoreDelete.jsp?sid=" + sid;
+	}
+
+</script>
+
+
+</head>
+<body>
+
+<!-- http://localhost:8090/WebApp12/MemberScoreSelect.jsp -->
+
+<div>
+	<h1>회원 성적 관리 및 출력 페이지</h1>
+	<hr>
+</div>
+
+<div>
+	<a href="MemberSelect.jsp"><button type="button">회원 명단 관리</button></a>
+	<a href="MemberSelect.jsp"><button type="button">성적 정보 입력</button></a>
+</div>
+<br>
+
+<div>
+	<%=str %>
+</div>
+
+</body>
+</html>
