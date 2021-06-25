@@ -1,0 +1,26 @@
+xml은 별도로 컴파일이 필요하지않아
+배포된 이후에도 얼마든지 수정이 가능하다.
+
+서블릿 - 스크립트릿 영역이라 생각하면 이해하기 편함
+
+--포워딩 복습
+
+// 포워딩하는 페이지에 값을 넘기기 위한 준비(설정)
+request.setAttribute("result", str);
+//-- str 값을 result 라는 이름으로 Test2_result.jsp 에 넘길 준비
+		
+// 포워딩 
+RequestDispatcher rd = request.getRequestDispatcher("/Test2_result.jsp");
+rd.forward(request, response);
+
+// 이전 페이지(Test2.java → 서블릿)로부터 데이터 수신(result → getAttribute())
+String str = (String)request.getAttribute("result");
+
+-- 흐름
+Test2.jsp submit 액션처리 -> web.xml 서블릿을 통해 Test2.java 에서 데이터 처리 
+→ Test2_result.jsp 로 포워딩
+Test2_result.jsp 에서 결과값 출력
+
+
+
+--- 표현언어는 표현식보다 더 안전하고 편하게 쓸 수 있다.

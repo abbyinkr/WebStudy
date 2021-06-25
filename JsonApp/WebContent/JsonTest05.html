@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JsonTest05.html</title>
+<script type="text/javascript">
+	
+	var myJsonObject5 =
+	{
+		"test" : function(args)
+		{
+			alert("Method Test : " + args);
+		}
+	}
+	
+	var t = myJsonObject5.test;
+	/* var t = myJsonObject5.test() 으로 이해하는 것이 좋다. */
+
+</script>
+</head>
+<body>
+
+<form>
+	<input type="button" value="click1" onclick="t('hey')">
+	<!-- → Method Test : hey -->	
+	<input type="button" value="click2"
+	   onclick="eval('var a=' + myJsonObject5.test); a('hey')">
+	<!-- → Method Test : hey -->	
+	   
+	<input type="button" value="click3"
+	 onclick="eval('(' + myJsonObject5.test + ')(\'hey\')')">
+	<!-- → Method Test : hey -->	
+	
+
+</form>
+
+
+</body>
+</html>

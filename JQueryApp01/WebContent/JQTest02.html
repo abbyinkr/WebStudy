@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JQTest02.html</title>
+<style type="text/css">
+
+	.item 
+	{
+		border: solid 2px red;
+		color: white;
+		background: black;
+	}
+
+</style>
+
+<link rel="stylesheet" type="text/css" href="css/style.css">
+
+<!-- 제이쿼리는 script 태그중 가장 먼저 쓰기 -->
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+
+<script type="text/javascript">
+
+	/*
+	function test()
+	{
+		alert("함수 호출 확인~!!");
+		
+	} 
+	*/
+
+	// 제이쿼리 함수 -- 모두 사용 가능
+	//jquery(document).ready();
+	//$(document).ready();
+	//jquery();
+	//$();
+	
+	//$(document).ready(기능 삽입 / 동작 수행 / 행위 처리);
+	//$(function()
+	$(document).ready(function()
+	{
+		// 테스트
+		//alert("기능 확인");
+		
+		// ※ 우리가... 또는 사용자가...
+		//    뭔가 건드리지 않아도...
+		//    (즉, 특별한 이벤트를 발생시키지 않아도...)
+		//    자동으로 처리될 수 있는 영역
+		
+		/*
+		$("h1").click(function()
+		{
+			//alert("클릭되었습니다.");
+			//alert( $(this).html() ); //-- 박정준, 심혜진, 선혜연 출력
+			//$(this).html("어떻게 될까요?"); //-- h1 내용이 어떻게 될까요? 로 바뀜
+			//$(this).html($(this).html() + "★");
+			//$(this).html($(this).html()+"추가");
+		});
+		*/
+		
+		//『on()』 : 이벤트 처리, 이벤트가 발생할 때마다
+		/*
+		$("h1").on("click", function()
+		{
+			//alert("클릭 이벤트 발생");
+			alert( $(this).html() );	
+		});
+		*/
+		
+		//『on()』 : 최초 한번 이벤트에만
+		
+		/*
+		$("h1").one("click", function()
+		{
+			//alert("클릭 1번만 되네요");
+			//alert( $(this).html() );
+			
+			$(this).html(function(index, html)
+			{
+				//alert(html);	//-- h1의 내용
+				//alert(index); //-- this 의개념이니까 모두 0번째 
+				//return html + "★";
+			})
+			
+		});
+		*/
+		
+		
+		$("h1").on(
+		{
+			// mouseenter : 어찌어찌하겠다 → 마우스 진입할 때...
+			// mouselaeve : 저찌저찌하겠다 → 마우시 빠져나올 때...
+			mouseenter:function() { $(this).addClass("item") }
+		    , mouseleave:function() { $(this).removeClass("item") }
+		});
+		
+		
+		// hover : mouseenter, mouseleave 합침
+		/*
+		$("h1").hover(function()
+		{
+			$(this).addClass("item");
+		}, function()
+		{
+			$(this).removeClass("item");
+		});
+		*/
+		
+	});
+	
+
+</script>
+
+</head>
+<body>
+
+<!-- <h1 onclick="함수()">박정준</h1> -->
+<h1 onclick="test()">박정준</h1>
+<h1>심혜진</h1>
+<h1>선혜연</h1>
+
+</body>
+</html>
